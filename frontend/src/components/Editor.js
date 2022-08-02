@@ -47,20 +47,23 @@ class Editor extends React.Component {
       this.props.onRemoveTag(tag);
     };
 
+    this.resolveImageUrl = () => {
+      let imageUrl = this.props.image;
+      if (imageUrl.trim() === "") {
+        this.props.onUpdateField("image", "placeholder.png");
+      }
+    };
+
     this.submitForm = (ev) => {
       ev.preventDefault();
 
       // If the image url is empty, placeholder image is shown instead
-      let imageUrl = this.props.image;
-      if (imageUrl.trim() === "") {
-        this.props.onUpdateField("image", "placeholder.png");
-        imageUrl = "placeholder.png";
-      }
+      this.resolveImageUrl();
 
       const item = {
         title: this.props.title,
         description: this.props.description,
-        image: imageUrl,
+        image: this.props.image,
         tagList: this.props.tagList,
       };
 
@@ -73,7 +76,7 @@ class Editor extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (this.props.match.params.slug !== nextProps.match.params.slug) {
       if (nextProps.match.params.slug) {
         this.props.onUnload();
