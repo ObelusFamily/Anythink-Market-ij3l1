@@ -53,8 +53,9 @@ class Editor extends React.Component {
       // If the image url is empty, placeholder image is shown instead
       let imageUrl = this.props.image;
       if (imageUrl.trim() === "") {
-        imageUrl = "placeholder.png"
-      } 
+        this.props.onUpdateField("image", "placeholder.png");
+        imageUrl = "placeholder.png";
+      }
 
       const item = {
         title: this.props.title,
