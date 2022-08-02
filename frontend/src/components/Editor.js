@@ -49,10 +49,17 @@ class Editor extends React.Component {
 
     this.submitForm = (ev) => {
       ev.preventDefault();
+
+      // If the image url is empty, placeholder image is shown instead
+      let imageUrl = this.props.image;
+      if (imageUrl.trim() === "") {
+        imageUrl = "placeholder.png"
+      } 
+
       const item = {
         title: this.props.title,
         description: this.props.description,
-        image: this.props.image,
+        image: imageUrl,
         tagList: this.props.tagList,
       };
 
